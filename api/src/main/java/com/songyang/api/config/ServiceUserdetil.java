@@ -46,6 +46,5 @@ public class ServiceUserdetil implements UserDetailsService {
         userDetils.setPassword(user.getPassword());
         userDetils.setEmail(user.getEmail());
         return userDetils;
-
     }
 }

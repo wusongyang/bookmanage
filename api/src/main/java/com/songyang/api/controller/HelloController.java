@@ -14,4 +14,9 @@ public class HelloController {
     public String hello(){
         return "123";
     }
+    @RequestMapping("/admin/hello")
+    @ResponseBody
+    public String hello1(){
+        return "1234444";
+    }
 }

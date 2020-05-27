@@ -16,6 +16,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         ObjectMapper objectMapper =new ObjectMapper();
         StandardResponse standardResponse =StandardResponse.SuccessResponse("登陆成功",authentication.getPrincipal());
+        httpServletResponse.setCharacterEncoding("utf-8");
+        httpServletResponse.setContentType("application/json;charset=UTF-8");
         httpServletResponse.getWriter().write(objectMapper.writeValueAsString(standardResponse));
     }
 }

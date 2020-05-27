@@ -68,7 +68,7 @@ public class StandardResponse<T> implements Serializable {
         return standardResponse;
     }
     public static<T> StandardResponse<T> ErrorResponseMessage(String message){
-        StandardResponse standardResponse =new StandardResponse(ResponseCode.SUCCESS.getCode(),message);
+        StandardResponse standardResponse =new StandardResponse(ResponseCode.ERROR.getCode(),message);
         return standardResponse;
     }
     public static<T> StandardResponse<T> ErrorResponseCodeMessage() {

@@ -17,6 +17,13 @@ public class SecurityConifg extends WebSecurityConfigurerAdapter {
     private ServiceUserdetil serviceUserdetil;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    LoginFailedHandler loginFailedHandler;
+    @Autowired
+    AjaxAccessDeniedHandler ajaxAccessDeniedHandler;
+
+    @Autowired
+    AjaxAuthenticationEntryPoint ajaxAuthenticationEntryPoint;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -25,8 +32,17 @@ public class SecurityConifg extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().formLogin().loginProcessingUrl("/login").successHandler(loginSuccessHandler).and().
-        authorizeRequests().anyRequest().authenticated();
+        http.csrf().disable().
+                formLogin().loginProcessingUrl("/login").
+                successHandler(loginSuccessHandler).
+                failureHandler(loginFailedHandler).
+                and().
+                authorizeRequests().
+                antMatchers("/admin/**").hasRole("admin").
+                antMatchers("/login").permitAll().
+                antMatchers("/hello").permitAll().
+                anyRequest().authenticated();
+             http.exceptionHandling().accessDeniedHandler(ajaxAccessDeniedHandler).authenticationEntryPoint(ajaxAuthenticationEntryPoint);
     }
 
 

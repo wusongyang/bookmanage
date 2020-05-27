@@ -100,4 +100,8 @@
       role_id = #{roleId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectRoleIdsByUserId" parameterType="int" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"></include>
+    from user_role where user_id =#{id}
+  </select>
 </mapper>

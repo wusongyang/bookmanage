@@ -50,4 +50,6 @@ public interface UserMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(User record);
+
+    User selectByUsername(String s);
 }

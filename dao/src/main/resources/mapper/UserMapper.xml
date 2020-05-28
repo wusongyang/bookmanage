@@ -78,12 +78,12 @@
       <if test="picId != null" >
         pic_id,
       </if>
-      <if test="cretaeTime != null" >
+
         cretae_time,
-      </if>
-      <if test="updateTime != null" >
+
+
         update_time,
-      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -104,12 +104,12 @@
       <if test="picId != null" >
         #{picId,jdbcType=INTEGER},
       </if>
-      <if test="cretaeTime != null" >
-        #{cretaeTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
+       now(),
+
+
+        now(),
+
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.songyang.pojo.User" >
@@ -137,9 +137,9 @@
       <if test="cretaeTime != null" >
         cretae_time = #{cretaeTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
+        update_time = now(),
+
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>

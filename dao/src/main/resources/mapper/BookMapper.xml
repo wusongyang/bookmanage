@@ -93,12 +93,12 @@
       <if test="publishTime != null" >
         publish_time,
       </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
+
+      create_time,
+
+
         update_time,
-      </if>
+
       <if test="overduePrice != null" >
         overdue_price,
       </if>
@@ -134,12 +134,12 @@
       <if test="publishTime != null" >
         #{publishTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
+      now(),
+
+
+        now(),
+
       <if test="overduePrice != null" >
         #{overduePrice,jdbcType=DECIMAL},
       </if>
@@ -182,9 +182,9 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
+        update_time = now(),
+
       <if test="overduePrice != null" >
         overdue_price = #{overduePrice,jdbcType=DECIMAL},
       </if>

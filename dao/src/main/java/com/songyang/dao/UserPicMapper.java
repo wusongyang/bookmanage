@@ -50,4 +50,10 @@ public interface UserPicMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(UserPic record);
+
+
+    int insertUserPicReturnId(UserPic userPic);
+
+    UserPic selectImageByUserId(int userid);
+
 }

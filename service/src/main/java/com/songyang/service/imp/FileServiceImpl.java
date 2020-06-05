@@ -7,6 +7,7 @@ import com.songyang.service.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -17,12 +18,13 @@ import java.util.UUID;
  * Created by geely
  */
 @Service("iFileService")
+
 public class FileServiceImpl implements FileService {
 
     private Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
 
 
-    public String upload(MultipartFile file, String path){
+    public String upload(MultipartFile file, String path ,String type){
         String fileName = file.getOriginalFilename();
         //扩展名
         //abc.jpg
@@ -44,8 +46,7 @@ public class FileServiceImpl implements FileService {
             file.transferTo(targetFile);
             //文件已经上传成功了
 
-
-            FTPUtil.uploadFile(Lists.newArrayList(targetFile));
+            FTPUtil.uploadFile(Lists.newArrayList(targetFile),type);
             //已经上传到ftp服务器上
 
             targetFile.delete();

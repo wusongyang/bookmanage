@@ -111,4 +111,15 @@
       user_id = #{userId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <insert id="insertUserPicReturnId" parameterType="com.songyang.pojo.UserPic" useGeneratedKeys="true" keyProperty="id" >
+    insert  into user_pic(pic_name,user_id,pic_host)values(
+    #{picName},#{userId},#{picHost}
+    )
+  </insert>
+
+  <select id="selectImageByUserId" parameterType="int" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"></include>
+    from user_pic where user_id=#{userid}
+  </select>
 </mapper>

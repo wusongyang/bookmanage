@@ -1,6 +1,9 @@
 package com.songyang.dao;
 
+import com.google.common.collect.Lists;
 import com.songyang.pojo.Book;
+
+import java.util.List;
 
 public interface BookMapper {
     /**
@@ -50,4 +53,11 @@ public interface BookMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Book record);
+
+
+    List selectBookList();
+
+    int deleteBookBylists(Integer[] ids);
+
+    int updateBooks(List<Book> books);
 }

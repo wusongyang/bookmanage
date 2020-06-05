@@ -1,8 +1,15 @@
 package com.songyang.service;
 
-import com.songyang.common.StandardResponse;
+
+import com.github.pagehelper.PageInfo;
 import com.songyang.pojo.User;
 
+
+
 public interface UserService {
-    StandardResponse regist(User user);
+    int regist(User user);
+    int update(User user);
+    boolean verifyUsername(String username);
+    PageInfo getUserList(int pageSize , int pageNum);
+    int deleteUser(Integer id);
 }

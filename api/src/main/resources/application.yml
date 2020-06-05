@@ -20,4 +20,11 @@ logging:
     com:
       example:
         mapper : debug
+images:
+ type:
+    userImage:
+      path: userimages/
+    bookImage:
+      path: bookimages/
+
 

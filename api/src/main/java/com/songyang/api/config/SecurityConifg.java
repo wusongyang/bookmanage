@@ -41,6 +41,7 @@ public class SecurityConifg extends WebSecurityConfigurerAdapter {
                 antMatchers("/admin/**").hasRole("admin").
                 antMatchers("/login").permitAll().
                 antMatchers("/hello").permitAll().
+                antMatchers("/user/register").permitAll().
                 anyRequest().authenticated();
              http.exceptionHandling().accessDeniedHandler(ajaxAccessDeniedHandler).authenticationEntryPoint(ajaxAuthenticationEntryPoint);
     }

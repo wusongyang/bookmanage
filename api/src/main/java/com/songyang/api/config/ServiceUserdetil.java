@@ -28,6 +28,7 @@ public class ServiceUserdetil implements UserDetailsService {
     RoleMapper roleMapper;
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        System.out.println(s);
         User user = userMapper.selectByUsername(s);
         if (user==null){
             throw new UsernameNotFoundException("没有用户名");

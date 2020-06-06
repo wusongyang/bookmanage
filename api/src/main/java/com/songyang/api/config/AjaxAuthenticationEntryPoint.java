@@ -18,9 +18,16 @@ public class AjaxAuthenticationEntryPoint implements AuthenticationEntryPoint {
     private ObjectMapper objectMapper;
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        StandardResponse standardResponse = StandardResponse.ErrorResponseByCodeMessage(ResponseCode.NEED_AUTHORITIES.getCode(),"没有权限");
         httpServletResponse.setCharacterEncoding("utf-8");
         httpServletResponse.setContentType("application/json;charset=UTF-8");
+        if (httpServletResponse.getHeader("token")!=null){
+            StandardResponse standardResponse = StandardResponse.ErrorResponseByCodeMessage(401,"token失效请重新登录");
+            httpServletResponse.getWriter().write(objectMapper.writeValueAsString(standardResponse));
+       }else {
+
+        StandardResponse standardResponse = StandardResponse.ErrorResponseByCodeMessage(ResponseCode.NEED_AUTHORITIES.getCode(),"没有权限");
+
         httpServletResponse.getWriter().write(objectMapper.writeValueAsString(standardResponse));
+        }
     }
 }

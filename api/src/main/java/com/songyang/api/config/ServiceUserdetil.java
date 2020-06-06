@@ -34,7 +34,7 @@ public class ServiceUserdetil implements UserDetailsService {
             throw new UsernameNotFoundException("没有用户名");
         }
         List<UserRole> roles = userRoleMapper.selectRoleIdsByUserId(user.getId());
-        List<Role> roleList =new ArrayList<>();
+
         List<SimpleGrantedAuthority> authorityList =new ArrayList<>();
         for (UserRole r :roles) {
             Role role= roleMapper.selectByPrimaryKey(r.getRoleId());

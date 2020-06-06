@@ -77,4 +77,18 @@
   <select id="selectCategoryIdByname" parameterType="string" resultType="integer">
     select id from category where name= #{name}
   </select>
+
+  <select id="selectMainCategorys" resultMap="BaseResultMap">
+    select *
+   from category where parent_id=0
+  </select>
+
+  <select id="selectCategoryByPrimary" parameterType="int" resultMap="BaseResultMap">
+    select * from category where id=#{categoryId}
+  </select>
+  <select id="selectChildCategory" parameterType="int" resultMap="BaseResultMap">
+    select * from  category where parentId=#{parentId}
+  </select>
+
+
 </mapper>

@@ -37,6 +37,7 @@ public class ACategoryController {
     public StandardResponse listCategory(@RequestParam(defaultValue = "10") int pageSize ,@RequestParam(defaultValue = "1") int pageNum){
         PageInfo pageInfo =categoryService.getList(pageSize,pageNum);
         return StandardResponse.SuccessResponse("查询成功",pageInfo);
+
     }
 
 }

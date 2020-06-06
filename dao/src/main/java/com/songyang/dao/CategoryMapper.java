@@ -29,4 +29,10 @@ public interface CategoryMapper {
     List selectCategorys();
 
     int selectCategoryIdByname(String name);
+
+    List selectMainCategorys();
+
+    Category selectCategoryByPrimary(int categoryId);
+
+    List<Category> selectChildCategory(int parentId);
 }

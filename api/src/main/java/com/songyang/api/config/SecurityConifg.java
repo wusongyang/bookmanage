@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @Configuration
@@ -24,6 +26,8 @@ public class SecurityConifg extends WebSecurityConfigurerAdapter {
 
     @Autowired
     AjaxAuthenticationEntryPoint ajaxAuthenticationEntryPoint;
+    @Autowired
+    JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -33,6 +37,7 @@ public class SecurityConifg extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().
+                sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().
                 formLogin().loginProcessingUrl("/login").
                 successHandler(loginSuccessHandler).
                 failureHandler(loginFailedHandler).
@@ -43,7 +48,10 @@ public class SecurityConifg extends WebSecurityConfigurerAdapter {
                 antMatchers("/hello").permitAll().
                 antMatchers("/user/register").permitAll().
                 anyRequest().authenticated();
-             http.exceptionHandling().accessDeniedHandler(ajaxAccessDeniedHandler).authenticationEntryPoint(ajaxAuthenticationEntryPoint);
+             http.exceptionHandling().accessDeniedHandler(ajaxAccessDeniedHandler).
+                     authenticationEntryPoint(ajaxAuthenticationEntryPoint);
+
+                http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
 

@@ -2,6 +2,8 @@ package com.songyang.service.imp;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.songyang.common.StandardResponse;
 import com.songyang.dao.CategoryMapper;
 import com.songyang.pojo.Category;
@@ -11,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -45,6 +49,57 @@ public class CategoryServiceImp implements CategoryService {
        PageInfo<Category> pageInfo=new PageInfo<>();
        pageInfo.setList(categoryList);
        return pageInfo;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public PageInfo<Category> getMainList(int pageSize, int pageNum) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Category> categoryList= categoryMapper.selectMainCategorys();
+        PageInfo pageInfo =new PageInfo();
+        pageInfo.setList(categoryList);
+        return pageInfo;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public StandardResponse getCategoryAndParentSet(int categoryId) {
+        Set<Category> categorySet = Sets.newHashSet();
+       categorySet= this.getParentSetCategory(categorySet, categoryId);
+        return StandardResponse.SuccessResponse("success",categorySet);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public StandardResponse getCategoryAndChildSet(int categoryId) {
+        Set categorySet = Sets.newHashSet();
+        Category category =  categoryMapper.selectCategoryByPrimary(categoryId);
+        if (category!=null){
+            this.getChildSet(categorySet,category.getId());
+        }
+        return StandardResponse.SuccessResponse("success",categorySet);
+    }
+
+    private  Set<Category> getChildSet(Set set,int categoryId){
+        List<Category> list=categoryMapper.selectChildCategory(categoryId);
+        if (list.size()>0) {
+            for (Category category : list) {
+                set.add(category);
+                this.getChildSet(set,category.getId());
+            }
+        }
+        return set;
+    }
+
+    private Set<Category> getParentSetCategory(Set set ,int categoryId){
+      Category category =  categoryMapper.selectCategoryByPrimary(categoryId);
+      if (category!=null){
+          set.add(category);
+          if (category.getParentid()!=0)
+         this.getParentSetCategory(set,category.getParentid());
+      }
+      return set;
+
     }
 
 

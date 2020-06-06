@@ -44,7 +44,7 @@ public class UserController {
     public  StandardResponse register(String username, String password , String phone, String email,
                                       HttpServletRequest httpServletRequest, MultipartFile multipartFile){
         String path=httpServletRequest.getSession().getServletContext().getRealPath("upload");
-        if (userService.verifyUsername(username)){
+        if (!userService.verifyUsername(username)){
             return StandardResponse.ErrorResponseMessage("用户名已经存在");
         }
         User user =new User();

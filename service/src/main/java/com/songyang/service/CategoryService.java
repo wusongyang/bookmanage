@@ -10,4 +10,7 @@ public interface CategoryService {
     int deleteCategory(Integer[] ids);
     StandardResponse update(Category category);
     PageInfo<Category> getList(int pageSize,int pageNum);
+    PageInfo<Category> getMainList(int pageSize,int pageNum);
+    StandardResponse getCategoryAndParentSet(int categoryId);
+    StandardResponse getCategoryAndChildSet(int categoryId);
 }

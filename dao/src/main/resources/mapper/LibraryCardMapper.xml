@@ -114,8 +114,8 @@
   <select id="selectByUserId" parameterType="integer" resultType="integer">
     select count(1) from library_card where user_id=#{userId}
   </select>
-  <select id="selectByUserId2" parameterType="string" resultMap="BaseResultMap">
+  <select id="selectByUserId2" parameterType="int" resultMap="BaseResultMap">
   select <include refid="Base_Column_List"></include>
-  from library_card where
+  from library_card where user_id=#{userId}
 </select>
 </mapper>

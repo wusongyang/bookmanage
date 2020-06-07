@@ -17,17 +17,20 @@ public class LibraryCardController {
     @Autowired
     private LibraryCardService libraryCardService;
 
-   @PostMapping("/{userid}")
+   @PostMapping("/user/{userid}")
     public StandardResponse addLibraryCard(LibraryCard libraryCard,@PathVariable(value = "userid" ) int userId){
-
+       UserDetils userDetails= (UserDetils) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+       if( userDetails.getId()!=userId){
+           return StandardResponse.ErrorResponseMessage("不是当前用户");
+       }
         libraryCard.setUserId(userId);
         libraryCard.setIsDelete(false);
       return  libraryCardService.addLibraryCard(libraryCard);
     }
-    @DeleteMapping("/{id}")
-    public StandardResponse deleteLibraryCard(@PathVariable(value = "id")int id){
-      return libraryCardService.deleteLibraryCard(id);
-    }
+//    @DeleteMapping("/{id}")
+//    public StandardResponse deleteLibraryCard(@PathVariable(value = "id")int id){
+//      return libraryCardService.deleteLibraryCard(id);
+//    }
     @GetMapping("/{userid}")
     public StandardResponse getLibraryCardId(@PathVariable(value = "userid")int userId){
       UserDetils userDetails= (UserDetils) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

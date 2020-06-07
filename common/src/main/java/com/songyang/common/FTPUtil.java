@@ -9,9 +9,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by geely
- */
 public class FTPUtil {
 
     private static  final Logger logger = LoggerFactory.getLogger(FTPUtil.class);
@@ -67,17 +64,15 @@ public class FTPUtil {
 
 
 
-    private boolean connectServer(String ip,int port,String user,String pwd){
+    private boolean connectServer(String ip,int port,String user,String pwd) throws IOException {
 
         boolean isSuccess = false;
         ftpClient = new FTPClient();
-        try {
+
             ftpClient.connect(ip);
             isSuccess = ftpClient.login(user,pwd);
             System.out.println(isSuccess);
-        } catch (IOException e) {
-            logger.error("连接FTP服务器异常",e);
-        }
+
         return isSuccess;
     }
 

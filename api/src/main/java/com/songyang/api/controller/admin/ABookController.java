@@ -12,11 +12,13 @@ import com.songyang.service.FileService;
 import com.songyang.vo.BookQuery;
 import com.songyang.vo.QueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.util.Date;
 
 
 @RestController
@@ -32,8 +34,8 @@ public class ABookController {
     }
 
     @PostMapping("/add")
-    public StandardResponse insertBook(String bookname, Integer count , String author , String title, String publishTime, BigDecimal
-                                       overduePrice, MultipartFile multipartFile,String categoryName,HttpServletRequest httpServletRequest){
+    public StandardResponse insertBook(String bookname, Integer count , String author , String title, Date publishTime, BigDecimal
+                                       overduePrice, MultipartFile multipartFile, String categoryName, HttpServletRequest httpServletRequest){
         String path =httpServletRequest.getSession().getServletContext().getRealPath("upload");
         String picname= fileService.upload(multipartFile,path,ImgType.bookImagesPath);
         if(picname==null){
@@ -41,13 +43,13 @@ public class ABookController {
         }
         Book book =new Book();
         book.setAuthor(author);
-        book.setBorrowConut(0);
+        book.setBorrowCount(0);
         book.setIsDelete(false);
         book.setName(bookname);
         book.setTitle(title);
         book.setOverduePrice(overduePrice);
-        book.setConut(count);
-        book.setPublishTime(DateformatUtil.strToDate(publishTime));
+        book.setCount(count);
+        book.setPublishTime(publishTime);
         book.setPicMainName(picname);
         book.setPicHost("http://r318x60291.zicp.vip/"+ImgType.bookImagesPath);
 

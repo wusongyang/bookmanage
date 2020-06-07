@@ -135,4 +135,9 @@
       is_return = #{isReturn,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectListByCardId" parameterType="int" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"></include>from borrow_info
+    where card_id=#{cardId}
+  </select>
 </mapper>

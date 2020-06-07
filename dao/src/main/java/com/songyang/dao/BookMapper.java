@@ -60,4 +60,6 @@ public interface BookMapper {
     int deleteBookBylists(Integer[] ids);
 
     int updateBooks(List<Book> books);
+
+    Book selectBookByPrimarySynchronization(int bookId);
 }

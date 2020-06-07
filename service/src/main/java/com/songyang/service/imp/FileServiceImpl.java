@@ -50,7 +50,7 @@ public class FileServiceImpl implements FileService {
             //已经上传到ftp服务器上
 
             targetFile.delete();
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error("上传文件异常",e);
             return null;
         }

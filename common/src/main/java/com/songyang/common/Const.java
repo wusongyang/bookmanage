@@ -1,6 +1,7 @@
 package com.songyang.common;
 
 public interface Const {
-     String User ="user";
-     String Admin="admin";
+     String USER ="user";
+     String ADMIN="admin";
+     String EMPLOYEE="employee";
 }

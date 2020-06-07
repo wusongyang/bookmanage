@@ -4,6 +4,7 @@ package com.songyang.service.imp;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
+import com.songyang.common.Const;
 import com.songyang.dao.UserMapper;
 import com.songyang.dao.UserRoleMapper;
 import com.songyang.pojo.User;
@@ -28,14 +29,36 @@ public class UserServiceImp implements UserService {
     private UserRoleMapper userRoleMapper;
     @Autowired
     private UserPicService userPicService;
+
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public int regist(User user) {
+    public int regist(User user,String type) {
         userMapper.insertSelective(user);
         UserRole userRole =new UserRole();
-        userRole.setRoleId(2);
-        System.out.println(user.getId());
-        userRole.setUserId(user.getId());
-        userRoleMapper.insertSelective(userRole);
+        switch (type){
+            case Const.ADMIN:
+                for (int i=1;i<4;i++){
+                    userRole.setRoleId(i);
+                    userRole.setUserId(user.getId());
+                    userRoleMapper.insertSelective(userRole);
+                }
+                break;
+            case Const.USER:
+                userRole.setRoleId(2);
+
+                userRole.setUserId(user.getId());
+                userRoleMapper.insertSelective(userRole);
+                break;
+            case Const.EMPLOYEE:
+                userRole.setRoleId(3);
+                userRole.setUserId(user.getId());
+                userRoleMapper.insertSelective(userRole);
+                userRole.setRoleId(2);
+                userRole.setUserId(user.getId());
+                userRoleMapper.insertSelective(userRole);
+                break;
+        }
+
         return  1;
     }
 

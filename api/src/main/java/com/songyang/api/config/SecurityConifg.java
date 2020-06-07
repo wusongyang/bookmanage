@@ -44,6 +44,7 @@ public class SecurityConifg extends WebSecurityConfigurerAdapter {
                 and().
                 authorizeRequests().
                 antMatchers("/admin/**").hasRole("admin").
+                antMatchers("/employee/**").hasRole("employee").
                 antMatchers("/login").permitAll().
                 antMatchers("/hello").permitAll().
                 antMatchers("/user/register").permitAll().

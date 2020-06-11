@@ -271,4 +271,9 @@
   <select id="selectBookByPrimarySynchronization" parameterType="int" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/> from book where id =#{bookId}
   </select>
+
+  <select id="selectBookListByCategoryId" parameterType="int" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"></include>
+    from book where category_id=#{categoryId} and is_delete=0
+  </select>
 </mapper>

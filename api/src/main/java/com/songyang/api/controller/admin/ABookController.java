@@ -61,20 +61,20 @@ public class ABookController {
 
     }
     @GetMapping(value = "/deletebook")
-    public StandardResponse deleteBook(QueryVo queryVo){
+    public StandardResponse deleteBooks(QueryVo queryVo){
        Boolean b =bookService.deleteBooks(queryVo.getIds());
       return b==true ? StandardResponse.SuccessResponseMessage("下架成功"):StandardResponse.ErrorResponseMessage("下架失败");
     }
 
-    @PostMapping(value = "/updatebook/{id}")
-    public StandardResponse updateBook(Book book,@PathVariable(value = "id") int id){
+    @PutMapping(value = "/{id}")
+    public StandardResponse updateBookbyId(Book book,@PathVariable(value = "id") int id){
         book.setId(id);
        Boolean b=bookService.updateBook(book);
 
       return b==true ? StandardResponse.SuccessResponseMessage("更新成功"):StandardResponse.ErrorResponseMessage("更新失败");
     }
-    @PostMapping(value = "/updatebook")
-    public StandardResponse updateBook(BookQuery bookQuery){
+    @PutMapping(value = "/books")
+    public StandardResponse updateBooks(BookQuery bookQuery){
         boolean b=bookService.updateBooks(bookQuery.getBookList());
         return b==true ? StandardResponse.SuccessResponseMessage("更新成功"):StandardResponse.ErrorResponseMessage("更新失败");
     }

@@ -62,4 +62,6 @@ public interface BookMapper {
     int updateBooks(List<Book> books);
 
     Book selectBookByPrimarySynchronization(int bookId);
+
+    List selectBookListByCategoryId(int categoryId);
 }

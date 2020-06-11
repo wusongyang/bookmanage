@@ -75,6 +75,7 @@ public class CategoryServiceImp implements CategoryService {
         Set categorySet = Sets.newHashSet();
         Category category =  categoryMapper.selectCategoryByPrimary(categoryId);
         if (category!=null){
+            categorySet.add(category);
             this.getChildSet(categorySet,category.getId());
         }
         return StandardResponse.SuccessResponse("success",categorySet);

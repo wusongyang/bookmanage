@@ -9,7 +9,6 @@ import com.songyang.pojo.UserPic;
 import com.songyang.service.FileService;
 import com.songyang.service.UserPicService;
 import com.songyang.service.UserService;
-import com.songyang.vo.UserVo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -58,9 +57,9 @@ public class AUserController {
             userPic.setUserId(user.getId());
             userPicService.saveImage(userPic);
             user.setPicId(userPic.getId());
-            int conut=userService.update(user);
+            int count=userService.update(user);
             user.setPassword("");
-            if (conut>0){
+            if (count>0){
                 return StandardResponse.SuccessResponse("注册成功",user);
             }
             else return StandardResponse.ErrorResponseMessage("注册失败");

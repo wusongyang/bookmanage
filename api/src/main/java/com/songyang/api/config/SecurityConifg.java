@@ -48,6 +48,10 @@ public class SecurityConifg extends WebSecurityConfigurerAdapter {
                 antMatchers("/login").permitAll().
                 antMatchers("/hello").permitAll().
                 antMatchers("/user/register").permitAll().
+                antMatchers("/v2/api-docs", "/swagger-resources/configuration/ui",
+                "/swagger-resources", "/swagger-resources/configuration/security",
+                "/swagger-ui.html", "/webjars/**").permitAll().
+                antMatchers("/visitor/**").permitAll().
                 anyRequest().authenticated();
              http.exceptionHandling().accessDeniedHandler(ajaxAccessDeniedHandler).
                      authenticationEntryPoint(ajaxAuthenticationEntryPoint);

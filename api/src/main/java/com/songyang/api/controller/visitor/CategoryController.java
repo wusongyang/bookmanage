@@ -1,4 +1,4 @@
-package com.songyang.api.controller.user;
+package com.songyang.api.controller.visitor;
 
 import com.github.pagehelper.PageInfo;
 import com.songyang.common.StandardResponse;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user/category")
+@RequestMapping("/visitor/category")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
